@@ -1,7 +1,12 @@
-export default function Home() {
+import ProductList from "@/components/productList"
+export default function Home()
+{
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <>
+       <div className="mt-20">
+        {/* Home page images */}
+           <ProductList />
+       </div>
+    </>
   )
 }
