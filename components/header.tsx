@@ -5,10 +5,6 @@ import { getCollections } from '../utils/shopify'
 import { CartContext } from '@/context/cart' 
 import Link from 'next/link'
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function Header() {
   const { countCart } = useContext(CartContext);
   const [collections, setCollections] = useState([]);
