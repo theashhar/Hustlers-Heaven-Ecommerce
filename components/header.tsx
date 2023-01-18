@@ -1,7 +1,8 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
+import { getCollections } from '../utils/shopify'
+import { CartContext } from '@/context/cart' 
 const navigation = {
   categories: [
     {
@@ -130,8 +131,13 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+  const { countCart } = useContext(CartContext)
   const [open, setOpen] = useState(false)
-
+  useEffect(() => {
+    getCollections().then((collections) => {
+      console.log(collections)
+    })
+  },[])
   return (
     <div className="bg-white fixed top-0 w-full z-50">
       {/* Mobile menu */}
@@ -255,18 +261,6 @@ export default function Header() {
                       Create account
                     </a>
                   </div>
-                </div>
-
-                <div className="border-t border-gray-200 py-6 px-4">
-                  <a href="#" className="-m-2 flex items-center p-2">
-                    <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
-                      alt=""
-                      className="block h-auto w-5 flex-shrink-0"
-                    />
-                    <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -413,19 +407,7 @@ export default function Header() {
                     Create account
                   </a>
                 </div>
-
-                <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
-                    <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
-                      alt=""
-                      className="block h-auto w-5 flex-shrink-0"
-                    />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div>
-
+                
                 {/* Search */}
                 <div className="flex lg:ml-6">
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
@@ -436,12 +418,12 @@ export default function Header() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
+                  <a href="/cart" className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{countCart()}</span>
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
                 </div>
