@@ -56,9 +56,13 @@ export default function Hero() {
               </button>
              </div>
         </div>
-        <div className="absolute w-full text-gray-100 bottom-1 text-center flex justify-center">
-            <div className={classNames(background.id === 0 ? "text-white":"text-gray-800")}>__</div>
-            <div className={classNames(background.id === 1 ? "text-white":"text-gray-800")}>__</div>
+        <div className="absolute w-full text-gray-100 bottom-3 text-center flex justify-center font-extrabold text-4xl hover:cursor-pointer">
+            <div className={classNames(background.id === 0 ? "text-white":"text-gray-800")} onClick={()=>{
+                setBackground(backgrounds[0])
+            }}>__</div>
+            <div className={classNames(background.id === 1 ? "text-white":"text-gray-800")} onClick={()=>{
+                setBackground(backgrounds[1])
+            }}>__</div>
         </div>
         </div>
         
