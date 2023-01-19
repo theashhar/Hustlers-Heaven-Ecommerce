@@ -17,14 +17,14 @@ export default function Hero() {
     }]
     const [background,setBackground] = useState(backgrounds[0]);
     useEffect(()=>{
-      setTimeout(()=>{
+      setInterval(()=>{
         if(background.id === backgrounds[1].id){
           setBackground(backgrounds[0]);
-        } else {
+        } else if(background.id === backgrounds[0].id) {
           setBackground(backgrounds[1])
         }
-      },3000)
-    },[background])
+      },5000)
+    },[])
     return (
       <div className="reative overflow-hidden bg-white w-full md:h-[650px] h-[500px]">
         <div className={classNames("relative transition-all overflow-hidden w-auto md:h-[650px] h-[500px] bg-cover bg-no-repeat bg-fixed bg-opacity-90",background.image)}>
@@ -55,6 +55,14 @@ export default function Hero() {
                 Shop Now
               </button>
              </div>
+        </div>
+        <div className="absolute w-full text-gray-100 bottom-3 text-center flex justify-center font-extrabold text-4xl hover:cursor-pointer">
+            <div className={classNames(background.id === 0 ? "text-white":"text-gray-800")} onClick={()=>{
+                setBackground(backgrounds[0])
+            }}>__</div>
+            <div className={classNames(background.id === 1 ? "text-white":"text-gray-800")} onClick={()=>{
+                setBackground(backgrounds[1])
+            }}>__</div>
         </div>
         </div>
         
