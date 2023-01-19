@@ -16,15 +16,6 @@ export default function Hero() {
       title:"High Quality Fabric"
     }]
     const [background,setBackground] = useState(backgrounds[0]);
-    useEffect(()=>{
-      setInterval(()=>{
-        if(background.id === backgrounds[1].id){
-          setBackground(backgrounds[0]);
-        } else if(background.id === backgrounds[0].id) {
-          setBackground(backgrounds[1])
-        }
-      },5000)
-    },[])
     return (
       <div className="reative overflow-hidden bg-white w-full md:h-[650px] h-[500px]">
         <div className={classNames("relative transition-all overflow-hidden w-auto md:h-[650px] h-[500px] bg-cover bg-no-repeat bg-fixed bg-opacity-90",background.image)}>
