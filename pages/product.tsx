@@ -14,6 +14,12 @@ const product = {
       src: 'https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg',
       alt: 'Angled front view with bag zipped and handles upright.',
     },
+    {
+      id: 2,
+      name: 'Angled view',
+      src: 'https://images.unsplash.com/photo-1674230565602-135a265b0228?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+      alt: 'Angled front view with bag zipped and handles upright.',
+    },
     // More images...
   ],
   colors: [
@@ -55,7 +61,7 @@ export default function Example() {
           {/* Image gallery */}
           <Tab.Group as="div" className="flex flex-col-reverse">
             {/* Image selector */}
-            <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+            <div className="mx-auto mt-6 w-full max-w-2xl sm:block lg:max-w-none">
               <Tab.List className="grid grid-cols-4 gap-6">
                 {product.images.map((image) => (
                   <Tab
