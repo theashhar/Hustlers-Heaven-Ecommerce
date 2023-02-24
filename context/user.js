@@ -51,10 +51,13 @@ const UserProvider = ({ children }) => {
             return user;
         }
     }
-
+    const signout = () => {
+        auth.signOut();
+        setUser({});
+    }
     return (
         <UserContext.Provider
-         value={{ user, setUser, signup, signin, withGoogle }}
+         value={{ user, setUser, signup, signin, withGoogle, signout }}
         >
          {children}
         </UserContext.Provider>
