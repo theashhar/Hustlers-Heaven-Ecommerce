@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Disclosure, RadioGroup, Tab } from '@headlessui/react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { HeartIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
-
+import { useRouter } from 'next/router'
+import { getProduct } from '@/utils/shopify'
 const product = {
   name: 'Zip Tote Basket',
   price: '$140',
@@ -51,9 +52,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Product() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
-
+  const router = useRouter()
+  const { id } = router.query
+  useEffect(() => {
+    if(id) {
+      getProduct('gid://shopify/Product/'+id).then((res) => {
+        console.log(res)
+      })
+    }
+  })
   return (
     <div className="bg-white mt-20">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">

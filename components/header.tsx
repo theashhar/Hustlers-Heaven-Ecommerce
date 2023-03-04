@@ -1,12 +1,14 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
 import { getCollections } from '../utils/shopify'
 import { CartContext } from '@/context/cart' 
+import { UserContext } from '@/context/user'
 import Link from 'next/link'
 
 export default function Header() {
   const { countCart } = useContext(CartContext);
+  const { user } = useContext(UserContext);
   const [collections, setCollections] = useState([]);
   const [navigation, setNavigation] = useState({
     categories: collections,
@@ -81,7 +83,14 @@ export default function Header() {
                   ))}
                 </div>
 
-                <div className="space-y-6 border-t border-gray-200 py-6 px-4">
+                {user ? (<div className="space-y-6 border-t border-gray-200 py-6 px-4">
+                  <div className="flow-root">
+                    <Link href="/account" className="-m-2 p-2 font-medium text-gray-900 flex gap-3">
+                    <UserIcon className="h-6 w-6 text-gray-400 hover:text-gray-500" aria-hidden="true" />
+                    Your Account
+                    </Link>
+                  </div>
+                </div>):(<div className="space-y-6 border-t border-gray-200 py-6 px-4">
                   <div className="flow-root">
                     <Link href="/login" className="-m-2 block p-2 font-medium text-gray-900">
                       Sign in
@@ -92,7 +101,7 @@ export default function Header() {
                       Create account
                     </Link>
                   </div>
-                </div>
+                </div>)}
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -156,7 +165,11 @@ export default function Header() {
               </Popover.Group>
 
               <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                {user ? (<div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                  <Link href="/account" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                   <UserIcon className="h-6 w-6 text-gray-400 hover:text-gray-500" aria-hidden="true" />
+                  </Link>
+                </div>):(<div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Sign in
                   </Link>
@@ -164,7 +177,7 @@ export default function Header() {
                   <Link href="/signup" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Create account
                   </Link>
-                </div>
+                </div>)}
                 
                 {/* Search */}
                 <div className="flex lg:ml-6">
