@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { auth } from "../utils/firebase";
 
@@ -6,8 +6,8 @@ const provider = new GoogleAuthProvider();
 export const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
-    const [user, setUser] = useState({});
-    
+    const [user, setUser] = useState(null);
+    const [error, setError] = useState({});
     const signup = async (email, password) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -17,9 +17,7 @@ const UserProvider = ({ children }) => {
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
-            return { errorCode, errorMessage };
-        } finally {
-            return user;
+            setError({ errorCode, errorMessage });
         }
     };
 
@@ -32,9 +30,7 @@ const UserProvider = ({ children }) => {
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
-            return { errorCode, errorMessage };
-        } finally {
-            return user;
+            setError({ errorCode, errorMessage });
         }
     }
 
@@ -46,15 +42,27 @@ const UserProvider = ({ children }) => {
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
-            return { errorCode, errorMessage };
-        } finally {
-            return user;
+            setError({ errorCode, errorMessage });
         }
     }
-
+    const signout = () => {
+        auth.signOut();
+        setUser({});
+        setError({});
+    }
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                setUser(user);
+            } else {
+                setUser(null);
+            }
+        });
+        return unsubscribe;
+    },[])
     return (
         <UserContext.Provider
-         value={{ user, setUser, signup, signin, withGoogle }}
+         value={{ user, setUser, signup, signin, withGoogle, signout, error, setError }}
         >
          {children}
         </UserContext.Provider>

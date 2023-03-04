@@ -19,6 +19,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/cart.tsx", "utils/shopify.js", "context/cart.js", "pages/product.js", "pages/order.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/cart.tsx", "utils/shopify.js", "context/cart.js","context/user.js", "pages/product.js", "pages/order.js"],
   "exclude": ["node_modules"]
 }
